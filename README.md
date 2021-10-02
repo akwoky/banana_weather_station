@@ -1,0 +1,1 @@
+docker run -it --restart always -v ${PWD}/src:/root -p 80:3000 node /bin/sh

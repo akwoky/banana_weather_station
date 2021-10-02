@@ -1,1 +1,1 @@
-docker run -it -v ${PWD}/src:/root -p 3000:3000 node /bin/sh
+docker run -it -v ${PWD}/src:/root -p 3000:3000 -w /root node /bin/bash
