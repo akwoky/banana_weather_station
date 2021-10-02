@@ -1,0 +1,1 @@
+docker run -it -v ${PWD}/src:/root -p 3000:3000 node /bin/sh
