@@ -1,1 +1,1 @@
-docker run -it -v ${PWD}/src:/root -p 3000:3000 -w /root node /bin/bash
+docker run --restart always -d -v ${PWD}/src:/root -p 80:3000 -w /root node npm start
