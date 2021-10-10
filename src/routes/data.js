@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var _ = require('lodash');
 
-var data = _.fill(Array(20160), {});
+var data = [];
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,9 +11,31 @@ router.get('/', function(req, res, next) {
 
 /* POST home page. */
 router.post('/', function(req, res, next) {
-  data.unshift(req.body)
-  data.pop()
-  res.sendStatus(200);
+  // validation {temperature: number, humidity: number, windspeed: number}
+
+  console.log(req.body)
+
+  if (_.has(req.body, 'temperature') && _.has(req.body, 'humidity') && _.has(req.body, 'windspeed')) {
+    // if array is > than length
+    if (data.length > 20159) {
+      data.pop()
+    }
+
+    payload = {
+      temperature: req.body.temperature,
+      windspeed: req.body.windspeed,
+      humidity: req.body.humidity,
+      timestamp: Date.now(),
+    }
+
+    console.log(payload)
+
+    data.unshift(payload)
+    res.sendStatus(200);
+
+  } else {
+    res.sendStatus(400)
+  }
 });
 
 module.exports = router;
