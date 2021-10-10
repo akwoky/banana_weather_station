@@ -13,8 +13,6 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   // validation {temperature: number, humidity: number, windspeed: number}
 
-  console.log(req.body)
-
   if (_.has(req.body, 'temperature') && _.has(req.body, 'humidity') && _.has(req.body, 'windspeed')) {
     // if array is > than length
     if (data.length > 20159) {
@@ -27,8 +25,6 @@ router.post('/', function(req, res, next) {
       humidity: req.body.humidity,
       timestamp: Date.now(),
     }
-
-    console.log(payload)
 
     data.unshift(payload)
     res.sendStatus(200);

@@ -12,8 +12,6 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "lodash": "^4.17.21",
-    "morgan": "~1.9.1",
-    "vue": "^2.6.14",
-    "vue-server-renderer": "^2.6.14"
+    "morgan": "~1.9.1"
   }
 }
