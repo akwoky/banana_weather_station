@@ -2,11 +2,27 @@
 <html lang="en">
 
 <head>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <title>Hello Annabelle</title>
 </head>
 
-<body>
-  <!--vue-ssr-outlet-->
+<body id="body">
+  <script>
+    var element = document.getElementById("body");
+    
+    setInterval(
+      function() {
+        axios.get('/data')
+          .then(function(response) {
+            element.innerHTML = JSON.stringify(response.data);
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+      },
+      1000);
+
+  </script>
 </body>
 
 </html>
