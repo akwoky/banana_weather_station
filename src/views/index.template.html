@@ -3,59 +3,62 @@
 
 <head>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
     integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <title>Hello Annabelle</title>
 </head>
 
-<body id="body">
+<body>
 
   <canvas id="myChart"></canvas>
 
   <script>
-    
-    const labels=[
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-      ];
-    
-    const data={
-        labels: labels,
-        datasets: [{
-          label: 'My First dataset',
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [0,10,5,2,20,30,45],
-        }]
-      };
-    
-    const config={
-        type: 'line',
-        data: data,
-        options: {}
-      };
-    
-    var myChart=new Chart(
-      document.getElementById('myChart'),
-      config
-    );
-    
-    // setInterval(
-    //   function() {
-    //     axios.get('/data')
-    //       .then(function(response) {
-    //         element.innerHTML = JSON.stringify(response.data);
-    //       })
-    //       .catch(function(error) {
-    //         console.log(error);
-    //       })
-    //   },
-    //   1000);
+    var windspeed_data;
+    var timestamp_labels;
+
+    axios.get('/data')
+      .then(function(response) {
+
+        console.log(response.data)
+
+        windspeed_data = _.map(response.data, function(elem) {
+          return elem.windspeed;
+        })
+
+        console.log(windspeed_data)
+
+        timestamp_labels = _.map(response.data, function(elem) {
+          return elem.timestamp;
+        })
+
+        console.log(timestamp_labels)
+
+        const data = {
+          labels: timestamp_labels,
+          datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: windspeed_data,
+          }]
+        };
+
+        const config = {
+          type: 'line',
+          data: data,
+          options: {}
+        };
+
+        var myChart = new Chart(
+          document.getElementById('myChart'),
+            config
+          );
+        })
+      .catch(function(error) {
+        console.log(error);
+      })
 
   </script>
 </body>
